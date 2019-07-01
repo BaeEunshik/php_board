@@ -1,0 +1,135 @@
+/* top_section */
+.top_section {
+    width:1024px;
+    margin:10px auto;
+}
+
+/* btns */
+.btns .btn {
+    display: block;
+    padding: 10px 0 10px; 
+    font-size: 15px;
+    line-height:15px;
+    text-align: center;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+}
+.btns > .btn_update {
+    width: 100px;
+    height: 17px;
+    margin-right: 5px;
+    background-color:orange;
+}
+.btns .form_delete .btn_delete {
+    display: block;
+    width: 100px;
+    height:37px;
+    background-color:crimson;
+}
+.btns .form_delete .btn_delete:hover {
+    cursor: pointer;
+}
+.btn_create{
+    display: block;
+    width: 1024px;
+    height: 17px;
+    margin: 0 auto 15px;
+    text-align: center;
+    background-color:royalblue;
+}
+
+/* topic */
+.topic{
+    width:1024px;
+    margin:10px auto;
+    border:1px solid #ccc;
+    background-color: #fff;
+}
+.topic .topic_head {
+    padding:15px 15px 15px 10px;
+    border-bottom:1px solid #ccc;
+}
+.topic .author h3 {
+    font-size:14px;
+}
+
+.topic .tit {
+    width:955px;
+    margin:0 auto;
+    padding:13px;
+    border-bottom:1px solid #ccc;
+}
+.topic .tit h3 {
+    font-size:18px;
+}
+.topic .tit h3 input{
+    border: none;
+}
+
+.topic .tit .btn_img{
+    width: 20px;
+    height: 20px;
+    display: block;
+    cursor: pointer;
+    -webkit-box-shadow: 2px 2px 2px -1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 2px 2px -1px rgba(0,0,0,0.75);
+    box-shadow: 2px 2px 2px -1px rgba(0,0,0,0.75);
+    border-radius:0;
+    background-image: url(../imgs/img.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+}
+.topic .tit .btn_img:active{
+    -webkit-box-shadow: inset 2px 2px 1px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: inset 2px 2px 1px 0px rgba(0,0,0,0.75);
+    box-shadow: inset 2px 2px 1px 0px rgba(0,0,0,0.75);
+}
+.topic .layer_background{
+    position:fixed;
+    left:0;top:0;
+    width:100%; height:100%; 
+    background-color:rgba(0,0,0,0.7)
+}
+.topic .img_layer{
+    position:fixed;
+    width:600px;
+    top:150px;left:50%;
+    margin-left:-300px;
+}
+.topic .img_layer .img_container{
+    position:relative
+}
+.topic .img_layer .img_container button.img_closer{
+    position:absolute;
+    right:5px;top:5px;
+    width:20px;height:20px;
+    padding:0;
+    background:none
+}
+.topic .img_layer .img_container img{
+    width:100%
+}
+
+
+.topic .description {
+    height:250px;
+    padding: 10px 25px;
+}
+.topic .description p {
+    position: relative;
+    height: 100%;
+    font-size:12px;
+    overflow: hidden;
+}
+.topic .description p textarea{
+    padding: 10px;
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    border: none;
+    resize: none;
+}
+
+
+
