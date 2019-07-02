@@ -24,6 +24,7 @@
     $origin_img_name = $article['origin_img_name'];
     $ext = $article['ext'];
     $dir = $article['dir'];
+
     $img_location = "$dir/$save_img_name.$ext";
 ?>
 <!doctype html>
@@ -34,9 +35,15 @@
     <?php require("lib/common_files.php") ?>
     <link rel="stylesheet" href="css/topic.css">
     <script>
+        $(function(){
+            $.ajax({
+                url: "/examples/media/request_ajax.php",
+                data: { name: "홍길동" },               
+                type: "GET",                           
+                dataType: "json"
+            })
+        });
 
-    </script>
-    <script>
         $(function(){
             var $topic = $(".topic");
             var $btn_img = $(".btn_img");
@@ -87,7 +94,12 @@
     <section class="topic clearfix">
         <div class="topic_head clearfix">
             <div class="author fl-l">
-                <h3><span>작성자 : </span><?=$author_name?></h3>
+                <h3>
+                    <span>작성자 : </span>
+                    <span id="author_name">
+                        <?=$author_name?>
+                    </span>
+                </h3>
             </div>
             <div class="btns fl-r clearfix">
                 <?=$delete_link?>
@@ -95,7 +107,9 @@
             </div>
         </div>
         <div class="tit clearfix">
-            <h3 class="fl-l"><?=$title?></h3>
+            <h3 class="fl-l">
+                <?=$title?>
+            </h3>
             <span class="btn_img fl-r"></span>
 
             <div class="layer_background img_closer hidden" style="position:fixed;left:0;top:0;width:100%; height:100%; background-color:rgba(0,0,0,0.7)"></div>

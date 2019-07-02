@@ -29,8 +29,8 @@ function getArticle(){
             FROM topic T, author A, image I
             WHERE T.id = $filtered_id and T.author_id = A.id and T.image_id = I.id";
     
-    // $sql = "select a.title, a.description, c.name, c.profile, concat(c.save_name,'.',c.ext) as img, c.origin_name
-    //         from topic as a
+    // $sql = "SELECT a.title, a.description, c.name, c.profile, concat(c.save_name,'.',c.ext) as img, c.origin_name
+    //         FROM topic as a
     //         left outer join image as b
     //         on a.image_id = b.id
     //         inner join author as c
