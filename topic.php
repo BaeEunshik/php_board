@@ -22,10 +22,9 @@
     $author_name = $article['name'];
     $save_img_name = $article['save_img_name'];
     $origin_img_name = $article['origin_img_name'];
-    $ext = $article['ext'];
     $dir = $article['dir'];
 
-    $img_location = "$dir/$save_img_name.$ext";
+    $img_location = "$dir/$save_img_name";
 ?>
 <!doctype html>
 <html>

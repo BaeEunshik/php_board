@@ -25,7 +25,7 @@ function getArticle(){
     global $conn;
     $filtered_id = mysqli_real_escape_string($conn, $_GET['id']);   // 필터링
     settype($filtered_id,'integer');
-    $sql = "SELECT T.title, T.description, T.name, A.name, A.profile, I.save_name, I.origin_name, I.ext, I.dir
+    $sql = "SELECT T.title, T.description, A.name, A.profile, I.save_name, I.origin_name, I.dir
             FROM topic T, author A, image I
             WHERE T.id = $filtered_id and T.author_id = A.id and T.image_id = I.id";
     
@@ -46,7 +46,6 @@ function getArticle(){
             'name' => htmlspecialchars($row['name']),
             'save_img_name' => htmlspecialchars($row['save_name']),
             'origin_img_name' => htmlspecialchars($row['origin_name']),
-            'ext' => htmlspecialchars($row['ext']),
             'dir' => htmlspecialchars($row['dir'])
         );
     }

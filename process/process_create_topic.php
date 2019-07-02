@@ -36,8 +36,8 @@
 
     // INSERT IMAGE
     $sql_image = "INSERT INTO image 
-                (origin_name, save_name, ext, dir)
-                VALUE ( '$origin_name', '$save_name', '$ext', '$uploads_dir')";
+                (origin_name, save_name, dir)
+                VALUE ( '$origin_name', '$save_name.$ext', '$uploads_dir')";
     $result_image = mysqli_query($conn,$sql_image);
     if(!$result_image){
         echo '데이터를 저장하는 중 문제가 발생하였습니다. 관리자에게 문의해주세요';
