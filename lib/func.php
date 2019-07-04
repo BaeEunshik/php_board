@@ -25,17 +25,18 @@ function getArticle(){
     global $conn;
     $filtered_id = mysqli_real_escape_string($conn, $_GET['id']);   // 필터링
     settype($filtered_id,'integer');
-    $sql = "SELECT T.title, T.description, A.name, A.profile, I.save_name, I.origin_name, I.dir
-            FROM topic T, author A, image I
-            WHERE T.id = $filtered_id and T.author_id = A.id and T.image_id = I.id";
+    // $sql = "SELECT T.title, T.description, A.name, A.profile, I.save_name, I.origin_name, I.dir
+    //         FROM topic T, author A, image I
+    //         WHERE T.id = $filtered_id and T.author_id = A.id and T.image_id = I.id";
     
-    // $sql = "SELECT a.title, a.description, c.name, c.profile, concat(c.save_name,'.',c.ext) as img, c.origin_name
-    //         FROM topic as a
-    //         left outer join image as b
-    //         on a.image_id = b.id
-    //         inner join author as c
-    //         on a.author_id = c.id
-    //         ";
+    $sql = "SELECT T.title, T.description, A.name, A.profile, concat(I.save_name,'.',I.ext) as img, I.origin_name, I.dir
+            FROM topic as T 
+            left outer join image as I
+            on T.image_id = I.id
+            inner join author as A
+            on T.author_id = A.id
+            WHERE T.id = $filtered_id
+            ";
  
     $result = mysqli_query($conn, $sql);
     $article;
@@ -44,7 +45,7 @@ function getArticle(){
             'title' => htmlspecialchars($row['title']),
             'description' => htmlspecialchars($row['description']),
             'name' => htmlspecialchars($row['name']),
-            'save_img_name' => htmlspecialchars($row['save_name']),
+            'save_img_name' => htmlspecialchars($row['img']),
             'origin_img_name' => htmlspecialchars($row['origin_name']),
             'dir' => htmlspecialchars($row['dir'])
         );
@@ -60,7 +61,7 @@ function getBasicArticle(){
         'origin_img_name' => "default.jpg"
     );
 }
-function getAuthorTableRows(){
+function getAuthorTableRows(){//
     global $conn;
     $sql = "SELECT * FROM author";
     $result = mysqli_query($conn, $sql);

@@ -7,10 +7,12 @@
     $allowed_ext = array('jpg','jpeg','png','gif');
     $error = $_FILES['myImage']['error'];
 
-    $origin_name = $_FILES['myImage']['name'];
-    $save_name = uniqid();
+    $file = $_FILES['myImage']['name'];
+    $file_name = explode('.', $file);
 
-    $ext = array_pop(explode('.', $origin_name));
+    $ext = array_pop($file_name);
+    $origin_name = $file_name[0];
+    $save_name = uniqid();
 
     if( $error != UPLOAD_ERR_OK ) {
         switch( $error ) {
@@ -36,8 +38,8 @@
 
     // INSERT IMAGE
     $sql_image = "INSERT INTO image 
-                (origin_name, save_name, dir)
-                VALUE ( '$origin_name', '$save_name.$ext', '$uploads_dir')";
+                (origin_name, save_name, ext, dir)
+                VALUE ( '$origin_name', '$save_name', '$ext', '$uploads_dir')";
     $result_image = mysqli_query($conn,$sql_image);
     if(!$result_image){
         echo '데이터를 저장하는 중 문제가 발생하였습니다. 관리자에게 문의해주세요';
