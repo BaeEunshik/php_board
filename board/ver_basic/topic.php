@@ -35,15 +35,6 @@
     <link rel="stylesheet" href="css/topic.css">
     <script>
         $(function(){
-            $.ajax({
-                url: "/examples/media/request_ajax.php",
-                data: { name: "홍길동" },               
-                type: "GET",                           
-                dataType: "json"
-            })
-        });
-
-        $(function(){
             var $topic = $(".topic");
             var $btn_img = $(".btn_img");
             var $img_layer = $(".img_layer");
