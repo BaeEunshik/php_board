@@ -1,0 +1,15 @@
+.clearfix:after {
+    content:"";display:table;clear:both;
+}
+.fl-r {
+    float: right;
+}
+.fl-l {
+    float: left;
+}
+.hidden{
+    display: none;
+}
+body{
+    background-color: #fbf6f6;
+}
