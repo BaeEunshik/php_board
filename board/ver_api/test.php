@@ -8,16 +8,20 @@
     <?php require("lib/common_files.php") ?>
     <script>  
     $(function(){
+
         $("#submit").on("click",function(){
-            var data = {
+            var formData1 = JSON.stringify($("#myForm").serialize());
+            var formData2 = new FormData($("#myForm").get(0))
+            var formData3 = {
                 title : $("#title").val(),
                 description : $("#description").val(),
                 author_id : $("#author_id").val(),
                 image_id : $("#image_id").val(),
             }
-            var formData = JSON.stringify($("#myForm").serializeArray());
-            ajax(JSON.stringify(data))
+            
+            // ajax(formData1);
         });
+
         function ajax(data){
             $.ajax({
                 url : "http://localhost/sample/php_mysql/board/ver_api/api/topic/create.php",
