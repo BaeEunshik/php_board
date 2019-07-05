@@ -1,66 +1,63 @@
 <?php
-    //에러 출력 설정
-    error_reporting(E_ALL);
-    ini_set("display_errors", 1);
+// required headers
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
 
-    // required headers
-    header("Access-Control-Allow-Origin: *");
-    header("Content-Type: application/json; charset=UTF-8");
-    
-    // include database and object files
-    include_once '../config/database.php';
-    include_once '../objects/topic.php';
+// include database and object files
+include_once '../config/database.php';
+include_once '../objects/topic.php';
 
-    // instantiate database and topic object
-    $database = new Database();
-    $db = $database->getConnection(); 
+// instantiate database and topic object
+$database = new Database();
+$db = $database->getConnection(); 
 
-    // initialize object
-    $topic = new Topic($db);
+// initialize object
+$topic = new Topic($db);
 
-    // query topic
-    $stmt = $topic->read();
-    $num = $stmt->rowCount();    
+// query topic
+$stmt = $topic->read();
+$num = $stmt->rowCount();    
 
-    // check if more than 0 record found
-    if($num>0){
-        // topics array
-        $topic_arr = array();
-        $topic_arr["records"] = array();
+// check if more than 0 record found
+if($num>0){
+    // topics array
+    $topic_arr = array();
+    $topic_arr["records"] = array();
 
-        // retrieve our table contents
-        // fetch() is faster than fetchAll()
-        // http://stackoverflow.com/questions/2770630/pdofetchall-vs-pdofetch-in-a-loop
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-            // extract row
-            // this will make $row['name'] to 
-            // just $name only
-            extract($row);
+    // retrieve our table contents
+    // fetch() is faster than fetchAll()
+    // http://stackoverflow.com/questions/2770630/pdofetchall-vs-pdofetch-in-a-loop
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+        // extract row
+        // this will make $row['name'] to 
+        // just $name only
 
-            $topic_item = array(
-                "id" => $id,
-                "title" => $title,
-                "description" => html_entity_decode($description),
-                "created" => $created,
-                "author_name" => $author_name,
-                "author_id" => $author_id
-            ); 
-            array_push($topic_arr["records"],$topic_item);
-        }
+        extract($row);
 
-        // set response code - 200 OK
-        http_response_code(200);
-        
-        // show topic data in json format
-        echo json_encode($topic_arr);
-    } else {
-        // set response code - 404 not found
-        http_response_code(404);
-        
-        // tell the user no topics found
-        echo json_encode(
-            array("message" => "no topics found.")
+        $topic_item = array(
+            "id" => $id,
+            "title" => $title,
+            "description" => html_entity_decode($description),
+            "created" => $created,
+            "author_name" => $author_name,
+            "author_id" => $author_id
         );
+        array_push($topic_arr["records"],$topic_item);
     }
 
-    // no topic found will be here 
+    // set response code - 200 OK
+    http_response_code(200);
+    
+    // show topic data in json format
+    echo json_encode($topic_arr);
+
+} else {
+    // set response code - 404 not found
+    http_response_code(404);
+    
+    // tell the user no topics found
+    echo json_encode(
+        array("message" => "no topics found.")
+    );
+}
+?>
