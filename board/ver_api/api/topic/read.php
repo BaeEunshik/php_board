@@ -27,6 +27,14 @@ if($num>0){
     // retrieve our table contents
     // fetch() is faster than fetchAll()
     // http://stackoverflow.com/questions/2770630/pdofetchall-vs-pdofetch-in-a-loop
+
+    // 방법 2
+    // $arr = array();
+    // while($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    //     $arr[] = $row;
+    // }
+    // echo json_encode($arr);
+
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         // extract row
         // this will make $row['name'] to 

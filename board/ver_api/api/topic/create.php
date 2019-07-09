@@ -64,4 +64,6 @@ if (
     // tell the user
     echo json_encode(array("message" => "Unable to create topic. Data is incomplete."));
 }
+
+// mysql_insert_id() // insert 한 row 의 id 값 가져오는 함수
 ?>
