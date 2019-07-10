@@ -18,32 +18,9 @@ class Topic{
         $this->conn = $db;
     }
 
-    // read topic
-    function read(){
-    
-        // select all query
-        $query = "SELECT
-                    a.name as author_name, t.id, t.title, t.description, t.created, t.author_id
-                FROM
-                    $this->table_name  t
-                    LEFT JOIN
-                        author a
-                            ON t.author_id = a.id
-                ORDER BY
-                    t.created DESC";
-    
-        // prepare query statement
-        $stmt = $this->conn->prepare($query);
-    
-        // execute query
-        $stmt->execute();
-    
-        return $stmt;
-    }
-
     // create topic
     function create(){
-        
+            
         // query to inser record
         $query = "INSERT INTO
                     $this->table_name
@@ -75,4 +52,96 @@ class Topic{
         }
         return false;
     }
+
+    // read topic
+    function read(){
+    
+        // select all query
+        $query = "SELECT
+                    a.name as author_name, t.id, t.title, t.description, t.created, t.author_id
+                FROM
+                    $this->table_name  t
+                    LEFT JOIN
+                        author a
+                            ON t.author_id = a.id
+                ORDER BY
+                    t.created DESC";
+    
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+    
+        // execute query
+        $stmt->execute();
+    
+        return $stmt;
+    }
+
+    // used when filling up the update topic form
+    function readOne(){
+        // query to read single record
+        $query = "SELECT 
+                    a.name as author_name, t.id, t.title, t.description, t.created, t.author_id, t.image_id
+                FROM
+                    $this->table_name t
+                    LEFT JOIN 
+                        author a
+                            ON t.author_id = a.id
+                WHERE 
+                    t.id = :topic_id
+                LIMIT 
+                    0,1";
+
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+        
+        // bind id of topic to be updated
+        $stmt->bindParam(':topic_id', $this->id);
+        
+        // execute query 
+        $stmt->execute();
+
+        // get retrieved row
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // set values to object properties
+        $this->title = $row['title'];
+        $this->description = $row['description'];
+        $this->created = $row['created'];
+        $this->author_id = $row['author_id'];
+        $this->image_id = $row['image_id'];
+    }
+
+    // update the topic
+    function update(){
+
+        // update query
+        $query = "UPDATE
+                    ".$this->table_name."
+                SET
+                    title = :title,
+                    description = :description
+                WHERE
+                    id = :id";
+
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+
+        // sanitize
+        $this->title = htmlspecialchars(strip_tags($this->title));
+        $this->description = htmlspecialchars(strip_tags($this->description));
+        $this->id = htmlspecialchars(strip_tags($this->id));
+
+        // bind new values
+        $stmt->bindParam(':title', $this->title);
+        $stmt->bindParam(':description', $this->description);
+        $stmt->bindParam(':id', $this->id);
+        
+        // execute the query
+        if($stmt->execute()){
+            return ture;
+        }
+        return false;
+    }
+
+    
 }
