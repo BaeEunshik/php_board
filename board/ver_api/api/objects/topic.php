@@ -19,7 +19,7 @@ class Topic{
     }
 
     // create topic
-    function create(){
+    public function create(){
             
         // query to inser record
         $query = "INSERT INTO
@@ -54,7 +54,7 @@ class Topic{
     }
 
     // read topic
-    function read(){
+    public function read(){
     
         // select all query
         $query = "SELECT
@@ -77,7 +77,7 @@ class Topic{
     }
 
     // used when filling up the update topic form
-    function readOne(){
+    public function readOne(){
         // query to read single record
         $query = "SELECT 
                     a.name as author_name, t.id, t.title, t.description, t.created, t.author_id, t.image_id
@@ -112,7 +112,7 @@ class Topic{
     }
 
     // update the topic
-    function update(){
+    public function update(){
 
         // update query
         $query = "UPDATE
@@ -144,7 +144,7 @@ class Topic{
     }
 
     // delete the topic
-    function delete(){
+    public function delete(){
         // 해당 게시물이 없을 경우의 예외처리 필요**
 
         // delete query 
@@ -169,7 +169,7 @@ class Topic{
     }
 
     // search topics
-    function search($keywords){
+    public function search($keywords){
         // select all query
         $query = "SELECT
                     a.name as author_name, t.id, t.title, t.description, t.created, t.author_id
@@ -203,7 +203,7 @@ class Topic{
 
     // read topics with pagination
     // public? 
-    function readPaging($from_record_num, $records_per_page){
+    public function readPaging($from_record_num, $records_per_page){
 
         // select query
         $query = "SELECT
@@ -231,7 +231,7 @@ class Topic{
     }
 
     // public? 
-    function count(){
+    public function count(){
         $query = "SELECT COUNT(*) as total_rows FROM 
                     $this->table_name";
 
