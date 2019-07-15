@@ -1,8 +1,4 @@
 <?php
-//에러 출력 설정
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-
 // required headers
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: access");
@@ -35,6 +31,7 @@ if($topic->title != null){
         "description" => $topic->description,
         "created" => $topic->created,
         "author_id" => $topic->author_id,
+        "author_name" => $topic->author_name,
         "image_id" => $topic->image_id
     );
 

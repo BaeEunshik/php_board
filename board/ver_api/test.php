@@ -18,8 +18,7 @@
                 author_id : $("#author_id").val(),
                 image_id : $("#image_id").val(),
             }
-            
-            // ajax(formData1);
+            ajax(JSON.stringify(formData3));
         });
 
         function ajax(data){
@@ -39,6 +38,7 @@
                 }
             })
         }
+        
     })
     </script>
 </head>
