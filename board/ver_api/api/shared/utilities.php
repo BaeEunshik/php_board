@@ -39,6 +39,5 @@ class Utilities{
         // json foramt
         return $paging_arr;
     }
-
 }
 ?>
