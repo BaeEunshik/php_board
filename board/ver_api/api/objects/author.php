@@ -22,10 +22,26 @@ class Author{
                 FROM $this->table_name
                 ORDER BY
                     name";
-                    
+
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
+        return $stmt;
+    }
+
+    // used by select drop-down list
+    public function read(){
+
+        // select all data
+        $query = "SELECT 
+                    id, name, profile
+                FROM $this->table_name
+                ORDER BY
+                    name";
+        
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        
         return $stmt;
     }
 
