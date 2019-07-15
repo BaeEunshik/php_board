@@ -69,7 +69,7 @@ class Topic{
     
         // prepare query statement
         $stmt = $this->conn->prepare($query);
-    
+        
         // execute query
         $stmt->execute();
     
@@ -168,6 +168,79 @@ class Topic{
         return false;
     }
 
+    // search topics
+    function search($keywords){
+        // select all query
+        $query = "SELECT
+                    a.name as author_name, t.id, t.title, t.description, t.created, t.author_id
+                FROM 
+                    $this->table_name t
+                    LEFT JOIN 
+                        author a ON t.author_id = a.id
+                WHERE 
+                    t.title LIKE :title OR t.description LIKE :description OR a.name LIKE :name
+                ORDER BY
+                    t.created DESC";
+
+        // prepare query statment
+        $stmt = $this->conn->prepare($query);
+
+        // sanitize
+        $keywords = htmlspecialchars(strip_tags($keywords));
+
+        $keywords = "%{$keywords}%"; // 쿼리문에 적용하려면 %로 감싸야 함 
+
+        // bind
+        $stmt->bindParam(":title", $keywords);
+        $stmt->bindParam(":description", $keywords);
+        $stmt->bindParam(":name", $keywords);
+
+        // execute query
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    // read topics with pagination
+    // public? 
+    function readPaging($from_record_num, $records_per_page){
+
+        // select query
+        $query = "SELECT
+                    a.name as author_name, t.id, t.title, t.description, t.created, t.author_id
+                    FROM 
+                        $this->table_name t
+                        LEFT JOIN
+                            author a
+                                ON t.author_id = a.id
+                    ORDER BY t.created DESC
+                    LIMIT ?,?"; 
+        
+        // prepare query statement
+        $stmt = $this->conn->prepare($query);
+
+        // bind variable values
+        $stmt->bindParam(1, $from_record_num, PDO::PARAM_INT); // ? 째 row 부터 가져온다.
+        $stmt->bindParam(2, $records_per_page, PDO::PARAM_INT); // ? 개를 가져온다.
+
+        // execute query
+        $stmt->execute();
+
+        // return values from database
+        return $stmt;
+    }
+
+    // public? 
+    function count(){
+        $query = "SELECT COUNT(*) as total_rows FROM 
+                    $this->table_name";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $row['total_rows'];
+    }
 
     
 }
