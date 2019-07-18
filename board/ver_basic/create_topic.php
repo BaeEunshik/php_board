@@ -65,6 +65,5 @@
 
     <?php require("view/topicList.php") ?>
 
-</form>
 </body>
 </html>
