@@ -80,12 +80,13 @@ class Topic{
     public function readOne(){
         // query to read single record
         $query = "SELECT 
-                    a.name as author_name, t.id, t.title, t.description, t.created, t.author_id, t.image_id
+                    a.name as author_name, t.title, t.description, t.created, concat(i.dir,'/',i.save_name,'.',i.ext) as image_file
                 FROM
                     $this->table_name t
-                    LEFT JOIN 
-                        author a
-                            ON t.author_id = a.id
+                    LEFT JOIN author a
+                        ON t.author_id = a.id
+                    RIGHT JOIN image i 
+                        ON t.image_id = i.id
                 WHERE 
                     t.id = :topic_id
                 LIMIT 
@@ -107,8 +108,8 @@ class Topic{
         $this->title = $row['title'];
         $this->description = $row['description'];
         $this->created = $row['created'];
-        $this->author_id = $row['author_id'];
-        $this->image_id = $row['image_id'];
+        $this->author_name = $row['author_name'];
+        $this->image_file = $row['image_file'];
     }
 
     // update the topic

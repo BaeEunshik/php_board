@@ -26,13 +26,11 @@ $topic->readOne();
 if($topic->title != null){
     // create array
     $topic_arr = array(
-        "id" => $topic->id,
         "title" => $topic->title,
         "description" => $topic->description,
         "created" => $topic->created,
-        "author_id" => $topic->author_id,
         "author_name" => $topic->author_name,
-        "image_id" => $topic->image_id
+        "image_file" => $topic->image_file
     );
 
     // set response code - 200 ok
