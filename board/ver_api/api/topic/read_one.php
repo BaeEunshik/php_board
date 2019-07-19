@@ -7,6 +7,7 @@ header("Access-Control-Allow-Credentials: true");
 header('Content-Type: application/json');
 
 // include database and object files
+include_once '../config/core.php';
 include_once '../config/database.php';
 include_once '../objects/topic.php';
 
@@ -30,7 +31,7 @@ if($topic->title != null){
         "description" => $topic->description,
         "created" => $topic->created,
         "author_name" => $topic->author_name,
-        "image_file" => $topic->image_file
+        "image_file" => $download_dir.'/'.$topic->image_file
     );
 
     // set response code - 200 ok
