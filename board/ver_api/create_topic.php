@@ -28,6 +28,23 @@
 
             });
             
+            $("#create_topic").on("click",function(){
+                var form = $("#create_from")[0];
+                var formData = new FormData(form);
+                $.ajax({
+                    url : "http://localhost/sample/php_mysql/board/ver_api/api/topic/create.php",
+                    method : "post",
+                    data : formData,
+                    processData: false,
+                    contentType: false,
+                    success : function(data){
+                        console.log(data);
+                    },
+                    error : function(xhr){
+                        console.log(xhr);
+                    }
+                })
+            });
 
 
             var $topic = $(".topic");
@@ -52,12 +69,12 @@
     <?php require("fragments/header.php") ?>
 
     <section class="topic create clearfix">
-        <form action="process/process_create_topic.php" method="POST">
+        <form id="create_from"action="process/process_create_topic.php" method="POST">
             <div class="topic_head clearfix">
                 <div class="author fl-l">
                     <h3>
                         <span>작성자 : </span>
-                        <select name="" id="authors">
+                        <select name="author_id" id="authors">
 
                         </select>
                     </h3>
@@ -69,7 +86,7 @@
                 </h3>
                 
                 <label class="btn_img fl-r">
-                    <input type="file" name="myImage" accept="image/*" style="display:none" />
+                    <input type="file" name="image" accept="image/*" style="display:none" />
                 </label>
                 
             </div>
@@ -78,7 +95,7 @@
                     <textarea name="description" id="" cols="30" rows="10" placeholder="description"></textarea>
                 </div>
             </div>
-            <button type="submit">저장</button>
+            <button id="create_topic" type="button">저장</button>
         </form>
     </section>
 
