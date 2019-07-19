@@ -18,7 +18,6 @@
                     $("#title").text(data.title);
                     $("#img_container").append('<img id="img" src="' + data.image_file + '" alt="">');
                     $("#description").text(data.description);
-                    console.log(data);
                 },
                 errror : function(){
 
