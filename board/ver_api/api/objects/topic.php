@@ -21,7 +21,7 @@ class Topic{
     // create topic
     public function create(){
             
-        // query to inser record
+        // query to insert record
         $query = "INSERT INTO
                     $this->table_name
                 SET
@@ -80,7 +80,7 @@ class Topic{
     public function readOne(){
         // query to read single record
         $query = "SELECT 
-                    a.name as author_name, t.title, t.description, t.created, concat(i.dir,'/',i.save_name,'.',i.ext) as image_file
+                    a.name as author_name, t.title, t.description, t.created, concat(i.save_name,'.',i.ext) as image_file
                 FROM
                     $this->table_name t
                     LEFT JOIN author a

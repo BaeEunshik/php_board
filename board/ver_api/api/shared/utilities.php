@@ -1,6 +1,8 @@
 <?php
 class Utilities{
 
+    const ALLOWED_EXT = array('jpg','jpeg','png','gif');
+
     public function getPaging($page, $total_rows, $records_per_page, $page_url){
         
         // paging array
@@ -38,6 +40,36 @@ class Utilities{
         
         // json foramt
         return $paging_arr;
+    }
+
+    public function imageFileCheck($image_file, $ext){
+
+        $error = $image_file['error'];
+        $result["bool"] = true;
+
+        if( $error != UPLOAD_ERR_OK ) {
+            switch( $error ) {
+                case UPLOAD_ERR_INI_SIZE:
+
+                case UPLOAD_ERR_FORM_SIZE:
+                    $result["message"] = "파일이 너무 큽니다. ($error)";
+                    break;
+                case UPLOAD_ERR_NO_FILE:
+                    $result["message"] = "파일이 첨부되지 않았습니다. ($error)";
+                    break;
+                default:
+                    $result["message"] = "파일이 제대로 업로드되지 않았습니다. ($error)";
+            }
+        } 
+        if ( !in_array($ext, $this::ALLOWED_EXT) ) {
+            $result["message"] = "허용되지 않는 확장자입니다.";            
+        }
+        
+        if(count($result) == 2){
+            $result["bool"] = false;
+        }
+
+        return $result;
     }
 }
 ?>
